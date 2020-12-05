@@ -22,17 +22,17 @@ public class NasaApplication {
 		List<List<String>> records  = new ArrayList<>();
 		try{
 
-			BufferedReader br = new BufferedReader(new FileReader("planetsedit.csv"));
+			BufferedReader br = new BufferedReader(new FileReader("planets.csv"));
 			String line;
 			while((line = br.readLine()) != null) {
-				String[] values = line.split("(\\d+)(,\\s*\\d+)*");
+				String[] values = line.split(",");
 				records.add(Arrays.asList(values));
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 
-		System.out.println(records);
+		records.forEach( r -> System.out.println(r));
 	}
 
 }
