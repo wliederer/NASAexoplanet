@@ -16,10 +16,6 @@ public class NasaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NasaApplication.class, args);
-
-		PlanetMapper planetMapper = new PlanetMapper();
-		List<Planet> list = planetMapper.convertCsvFileToPlanetObjectList();
-		planetMapper.writePlanetObjectsToJsonFile(list, "planets.json");
 	}
 
 
