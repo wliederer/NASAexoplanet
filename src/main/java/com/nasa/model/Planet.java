@@ -2,6 +2,7 @@ package com.nasa.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Created by brittanytinnin on 12/4/20 1:14 PM

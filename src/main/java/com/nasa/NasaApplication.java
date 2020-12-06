@@ -1,5 +1,6 @@
 package com.nasa;
 
+import com.nasa.maper.PlanetMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -14,25 +15,11 @@ public class NasaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NasaApplication.class, args);
-		loadCSV();
+
+		PlanetMapper planetMapper = new PlanetMapper();
+		planetMapper.convertCsvFileToPlanetObjectList();
 	}
 
-	public static void loadCSV() {
 
-		List<List<String>> records  = new ArrayList<>();
-		try{
-
-			BufferedReader br = new BufferedReader(new FileReader("planets.csv"));
-			String line;
-			while((line = br.readLine()) != null) {
-				String[] values = line.split(",");
-				records.add(Arrays.asList(values));
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-
-		records.forEach( r -> System.out.println(r));
-	}
 
 }
