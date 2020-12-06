@@ -1,11 +1,13 @@
 package com.nasa.maper;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nasa.model.Planet;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -143,6 +145,8 @@ public class PlanetMapper {
                         csvRecord.get("releasedate")
                 );
 
+                planets.add(planet);
+
             }
 
 
@@ -153,6 +157,26 @@ public class PlanetMapper {
 
         System.out.println(planets);
         return planets;
+    }
+
+
+
+
+
+    public void writePlanetObjectsToJsonFile(List<Planet> planets, String jsonFile){
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        File file = new File(jsonFile);
+
+        try {
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, planets);
+        }catch(Exception e){
+            System.out.println("Error creating JSON File!");
+            e.printStackTrace();
+        }
+
+
     }
 
 }

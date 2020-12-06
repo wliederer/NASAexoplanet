@@ -1,6 +1,7 @@
 package com.nasa;
 
 import com.nasa.maper.PlanetMapper;
+import com.nasa.model.Planet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -17,7 +18,8 @@ public class NasaApplication {
 		SpringApplication.run(NasaApplication.class, args);
 
 		PlanetMapper planetMapper = new PlanetMapper();
-		planetMapper.convertCsvFileToPlanetObjectList();
+		List<Planet> list = planetMapper.convertCsvFileToPlanetObjectList();
+		planetMapper.writePlanetObjectsToJsonFile(list, "planets.json");
 	}
 
 
