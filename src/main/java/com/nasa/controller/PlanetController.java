@@ -27,7 +27,6 @@ public class PlanetController {
 	@GetMapping("/allPlanets")
 	public ResponseEntity<List<Planet>> getAllPlanets(){
 		List<Planet> resp;
-		
 		resp = planetService.getAllPlanets();
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
