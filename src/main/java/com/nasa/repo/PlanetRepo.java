@@ -2,13 +2,10 @@ package com.nasa.repo;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
 
 import com.nasa.model.Planet;
 
-import lombok.Data;
 
-@Repository
 public class PlanetRepo {
 	
 	private static PlanetRepo singleton = null;
