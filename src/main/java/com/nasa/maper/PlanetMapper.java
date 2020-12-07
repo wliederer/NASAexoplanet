@@ -155,7 +155,7 @@ public class PlanetMapper {
             e.printStackTrace();
         }
 
-        System.out.println(planets);
+//        System.out.println(planets);
         return planets;
     }
 
