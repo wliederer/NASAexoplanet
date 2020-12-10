@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 public class Planet {
 
+	private final Long id;
     private final String planetName;
     private final String hostName;
     private final String defaultParameterSet;

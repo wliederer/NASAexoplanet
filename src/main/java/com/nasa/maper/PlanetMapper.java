@@ -24,6 +24,7 @@ public class PlanetMapper {
     public List<Planet> convertCsvFileToPlanetObjectList() {
         BufferedReader fileReader;
         CSVParser csvParser;
+        Long count = 0l;
 
         List<Planet> planets = new ArrayList<>();
 
@@ -48,11 +49,11 @@ public class PlanetMapper {
 //                }
 //            }
 
-
             for (CSVRecord csvRecord : csvRecords) {
-
+            	
                 Planet planet = new Planet(
-                        csvRecord.get("pl_name"),
+                		
+                        count, csvRecord.get("pl_name"),
                         csvRecord.get("hostname"),
                         csvRecord.get("default_flag"),
                         csvRecord.get("sy_snum"),
@@ -146,6 +147,7 @@ public class PlanetMapper {
                 );
 
                 planets.add(planet);
+                count++;
 
             }
 

@@ -21,7 +21,7 @@ public class PlanetService {
 		
 		List<Planet> firstHundred = new ArrayList<>();
 		
-		firstHundred = planetList.stream().limit(100).collect(Collectors.toList());
+		firstHundred = planetList.stream().limit(10).collect(Collectors.toList());
 		
 		return firstHundred;
 	}
