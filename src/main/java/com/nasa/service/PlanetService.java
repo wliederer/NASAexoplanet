@@ -26,7 +26,8 @@ public class PlanetService {
 		planetList = PlanetRepo.getInstance().getPlanets();
 		
 		List<Planet> firstHundred = new ArrayList<>();
-		
+
+		//TODO Is this for the first 100 or 10?
 		firstHundred = planetList.stream().limit(10).collect(Collectors.toList());
 		
 		return firstHundred;
