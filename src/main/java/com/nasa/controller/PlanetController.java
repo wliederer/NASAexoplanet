@@ -44,7 +44,7 @@ public class PlanetController {
 	}
 	
 	@PostMapping("/searchPlanets")
-	public ResponseEntity<List<Planet>> searchPlanets(@RequestBody PlanetSearchReq searchReq) throws DataNotFoundException{
+	public ResponseEntity<List<Planet>> searchPlanetsByHostName(@RequestBody PlanetSearchReq searchReq) throws DataNotFoundException{
 		List<Planet> resp = new ArrayList<>();
 		log.info("searchReq "+searchReq);
 		
