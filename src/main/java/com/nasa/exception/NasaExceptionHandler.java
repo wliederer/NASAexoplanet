@@ -20,5 +20,15 @@ public class NasaExceptionHandler {
 		
 		return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(value = NoValidSearchException.class)
+	public ResponseEntity<ErrorResponse> handleNoValidSearchException(NoValidSearchException ex) {
+		ErrorResponse errorResponse = new ErrorResponse();
+		errorResponse.setTimestamp(LocalDateTime.now());
+		errorResponse.setErrorDetails(ex.getMessage());
+		errorResponse.setStatus(HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
+	}
 
 }
