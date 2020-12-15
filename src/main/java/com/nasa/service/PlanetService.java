@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.nasa.exception.DataNotFoundException;
 import com.nasa.model.Planet;
@@ -24,33 +25,58 @@ public class PlanetService {
 	public List<Planet> getAllPlanets(){
 		List<Planet> planetList = new ArrayList<>();
 		planetList = PlanetRepo.getInstance().getPlanets();
-		
+
 		List<Planet> firstHundred = new ArrayList<>();
 
-		//TODO Is this for the first 100 or 10?
 		firstHundred = planetList.stream().limit(10).collect(Collectors.toList());
-		
+
 		return firstHundred;
 	}
 	
-	public List<Planet> searchByHostName(PlanetSearchReq searchReq) throws DataNotFoundException{
+	public List<Planet> searchBySingleField(PlanetSearchReq searchReq) throws DataNotFoundException{
 		List<Planet> planetList = new ArrayList<>();
 		planetList = PlanetRepo.getInstance().getPlanets();
 		
-		List<Planet> byHostName;	
-		byHostName = planetList.stream().filter(c->c.getHostName().equals(searchReq.getHostName()))
+		List<Planet> bySingleField = new ArrayList<>();	
+		
+		if(!StringUtils.isEmpty(searchReq.getHostName())) {
+			log.info("searchBySingleField: hostName " + searchReq.getHostName());
+			
+		bySingleField = planetList.stream().filter(c->c.getHostName().equals(searchReq.getHostName()))
 				.collect(Collectors.toList());
 		
-		if(CollectionUtils.isEmpty(byHostName)) {
+		} else if(!StringUtils.isEmpty(searchReq.getDiscoveryFacility())) {
+			log.info("searchBySingleField: discoveryFacility " + searchReq.getDiscoveryFacility());
+
+			bySingleField = planetList.stream().filter(c->c.getDiscoveryFacility().equals(searchReq.getDiscoveryFacility()))
+					.collect(Collectors.toList());
+		} else if(!StringUtils.isEmpty(searchReq.getDiscoveryMethod())) {
+			log.info("searchBySingleField: discoveryMethod " + searchReq.getDiscoveryMethod());
+
+			bySingleField = planetList.stream().filter(c->c.getDiscoveryMethod().equals(searchReq.getDiscoveryMethod()))
+					.collect(Collectors.toList());
+		} else if(!StringUtils.isEmpty(searchReq.getDiscoveryYear())) {
+			log.info("searchBySingleField: discoveryYear " + searchReq.getDiscoveryYear());
+
+			bySingleField = planetList.stream().filter(c->c.getDiscoveryYear().equals(searchReq.getDiscoveryYear()))
+					.collect(Collectors.toList());
+		}
+		
+		if(CollectionUtils.isEmpty(bySingleField)) {
 			
 			throw new DataNotFoundException("no planets with host name "+searchReq.getHostName());
 		}
 		
-		log.info("serachByHostName: planet response "+byHostName);
+		log.info("serachByHostName: planet response "+bySingleField);
 		
-		return byHostName;
+		return bySingleField;
 	}
 	
-	
+	//TODO- get hostname to be a link to the website
+	//TODO- search by multiple fields
+	//TODO- User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
+	//TODO- User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
+
+
 
 }

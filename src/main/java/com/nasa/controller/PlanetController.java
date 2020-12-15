@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nasa.exception.DataNotFoundException;
+import com.nasa.exception.NoValidSearchException;
 import com.nasa.model.Planet;
 import com.nasa.model.PlanetSearchReq;
 import com.nasa.service.PlanetService;
+import com.nasa.util.SearchRequestValidate;
 
 @RestController
 @RequestMapping("NASA")
@@ -44,15 +46,23 @@ public class PlanetController {
 	}
 	
 	@PostMapping("/searchPlanets")
-	public ResponseEntity<List<Planet>> searchPlanetsByHostName(@RequestBody PlanetSearchReq searchReq) throws DataNotFoundException{
+	public ResponseEntity<List<Planet>> searchPlanets(@RequestBody PlanetSearchReq searchReq) throws DataNotFoundException, NoValidSearchException{
 		List<Planet> resp = new ArrayList<>();
 		log.info("searchReq "+searchReq);
 		
-		if(!StringUtils.isEmpty(searchReq.getHostName())) {
+		String field = SearchRequestValidate.getSingleField(searchReq);
+		
+		if(!StringUtils.isEmpty(field)) {
 			
-			log.info("searchPlanets: searching "+searchReq);
-			resp = planetService.searchByHostName(searchReq);
+			log.info("searchPlanets: searching "+field);
+			
+			resp = planetService.searchBySingleField(searchReq);
+			
+		} else if(field.contentEquals("")) {
+			
+			throw new NoValidSearchException("no fields passed for search");
 		}
+			
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 
