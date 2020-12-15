@@ -20,6 +20,6 @@ public class SearchRequestValidate {
 		}
 		return field;
 	}
-		
+
 
 }
