@@ -1,6 +1,7 @@
 package com.nasa.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import com.nasa.exception.DataNotFoundException;
@@ -32,10 +34,15 @@ public class PlanetService {
 
 		return firstHundred;
 	}
+
+
+
+
+
+
 	
 	public List<Planet> searchBySingleField(PlanetSearchReq searchReq) throws DataNotFoundException{
-		List<Planet> planetList = new ArrayList<>();
-		planetList = PlanetRepo.getInstance().getPlanets();
+		List<Planet> planetList = PlanetRepo.getInstance().getPlanets();
 		
 		List<Planet> bySingleField = new ArrayList<>();	
 		
@@ -71,12 +78,48 @@ public class PlanetService {
 		
 		return bySingleField;
 	}
+
+
+
+
+
+
+
 	
 	//TODO- get hostname to be a link to the website
-	//TODO- search by multiple fields
+
 	//TODO- User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
 	//TODO- User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
 
 
+
+
+
+
+
+
+
+	//TODO- search by multiple fields
+	public List<Planet> searchByMultipleFields(PlanetSearchReq multipleFields) throws DataNotFoundException {
+
+		/*
+		return a list of planets matching the object multipleFields
+		 */
+
+		List<Planet> byMultipleFields = new ArrayList<>();
+
+		List<Planet> planetList = PlanetRepo.getInstance().getPlanets();
+
+		if(!ObjectUtils.isEmpty(multipleFields)){
+			byMultipleFields = planetList.stream().filter(planet -> planet.equals(multipleFields)).collect(Collectors.toList()).;
+		}
+
+		if(CollectionUtils.isEmpty(byMultipleFields)) {
+
+			throw new DataNotFoundException("No results match criteria");
+		}
+
+		return  byMultipleFields;
+	}
 
 }
