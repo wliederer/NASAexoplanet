@@ -25,12 +25,11 @@ public class PlanetService {
 	public List<Planet> getAllPlanets(){
 		List<Planet> planetList = new ArrayList<>();
 		planetList = PlanetRepo.getInstance().getPlanets();
-		
+
 		List<Planet> firstHundred = new ArrayList<>();
 
-		//TODO Is this for the first 100 or 10?
 		firstHundred = planetList.stream().limit(10).collect(Collectors.toList());
-		
+
 		return firstHundred;
 	}
 	
@@ -73,6 +72,11 @@ public class PlanetService {
 		return bySingleField;
 	}
 	
-	
+	//TODO- get hostname to be a link to the website
+	//TODO- search by multiple fields
+	//TODO- User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
+	//TODO- User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
+
+
 
 }
