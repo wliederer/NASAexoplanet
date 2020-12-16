@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,15 +76,12 @@ public class PlanetService {
     }
 
 
-    //TODO- get hostname to be a link to the website
-
-    //TODO- User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
-    //TODO- User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
 
 
 
-    //TODO- search by multiple fields
-    public List<Planet> searchByMultipleFields(PlanetSearchReq multipleFields) throws DataNotFoundException {
+
+    //TODO- search by all fields
+    public List<Planet> searchByAllFields(PlanetSearchReq multipleFields) throws DataNotFoundException {
 
         log.debug(String.valueOf(multipleFields));
 
@@ -106,5 +104,35 @@ public class PlanetService {
 
         return byMultipleFields;
     }
+
+
+//TODO- get hostname to be a link to the website
+    //TODO- (discovery year)User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
+    //TODO- (discovery method)User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
+    //TODO- (discovery facility)User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
+
+
+    //TODO- (host name)User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
+    //TODO- (discovery year)User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
+    //TODO- (discovery method)User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
+    //TODO- (discovery facility)User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
+
+
+
+    //TODO- (host name)User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
+    public List<Planet> sortByHostName(List<Planet> planets) throws DataNotFoundException{
+
+        if(!CollectionUtils.isEmpty(planets)){
+
+            return planets.stream().sorted((planetOne, planetTwo) -> planetOne.getHostName().compareToIgnoreCase(planetTwo.getHostName())).collect(Collectors.toList());
+
+        } else {
+            throw new DataNotFoundException("No List Available to Sort");
+        }
+
+    }
+
+
+
 
 }

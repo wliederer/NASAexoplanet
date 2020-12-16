@@ -78,12 +78,24 @@ public class PlanetController {
 
         if (!ObjectUtils.isEmpty(searchDetails)) {
 
-            response = planetService.searchByMultipleFields(searchDetails);
+            response = planetService.searchByAllFields(searchDetails);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             throw new NoValidSearchException("Search Fields Empty");
         }
+    }
 
+
+    @PostMapping("/sort-hostname-ascending")
+    public ResponseEntity<List<Planet>> ascendingSortByHostName(@RequestBody List<Planet> planets, String category) throws DataNotFoundException, NoValidSearchException {
+        List<Planet> response;
+
+        if(!CollectionUtils.isEmpty(planets)){
+            response = planetService.sortByHostName(planets);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            throw new NoValidSearchException("No Data Found for Search.");
+        }
     }
 
 }
