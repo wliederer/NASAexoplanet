@@ -11,12 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.nasa.exception.DataNotFoundException;
 import com.nasa.exception.NoValidSearchException;
@@ -86,28 +81,47 @@ public class PlanetController {
     }
 
 
-    @PostMapping("/sort-hostname-ascending")
-    public ResponseEntity<List<Planet>> ascendingSortByHostName(@RequestBody List<Planet> planets) throws DataNotFoundException, NoValidSearchException {
+    @PostMapping("/sort-planets-asc/{category}")
+    public ResponseEntity<List<Planet>> ascendingSortBy(@RequestBody List<Planet> planets, @PathVariable("category") String category) throws DataNotFoundException, NoValidSearchException {
         List<Planet> response;
 
-        if(!CollectionUtils.isEmpty(planets)){
+        if(!CollectionUtils.isEmpty(planets) && category.contentEquals("hostName")){
             response = planetService.sortByHostNameAsc(planets);
             return new ResponseEntity<>(response, HttpStatus.OK);
-        } else {
-            throw new NoValidSearchException("No Data Found for Search.");
-        }
-    }
-
-    @PostMapping("/sort-hostname-descending")
-    public ResponseEntity<List<Planet>> descendingSortByHostName(@RequestBody List<Planet> planets) throws DataNotFoundException, NoValidSearchException {
-        List<Planet> response;
-
-        if(!CollectionUtils.isEmpty(planets)){
-            response = planetService.sortByHostNameDesc(planets);
+        } else if(!CollectionUtils.isEmpty(planets) && category.contentEquals("discoveryFacility")){
+            response = planetService.sortByFacilityAsc(planets);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else if(!CollectionUtils.isEmpty(planets) && category.contentEquals("discoveryMethod")){
+            response = planetService.sortByMethodAsc(planets);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else if(!CollectionUtils.isEmpty(planets) && category.contentEquals("discoveryYear")){
+            response = planetService.sortByYearAsc(planets);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             throw new NoValidSearchException("No Data Found for Search.");
         }
     }
 
+
+
+    @PostMapping("/sort-planets-desc/{category}")
+    public ResponseEntity<List<Planet>> descendingSortBy(@RequestBody List<Planet> planets, @PathVariable("category") String category) throws DataNotFoundException, NoValidSearchException {
+        List<Planet> response;
+
+        if(!CollectionUtils.isEmpty(planets) && category.contentEquals("hostName")){
+            response = planetService.sortByHostNameDesc(planets);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else if(!CollectionUtils.isEmpty(planets) && category.contentEquals("discoveryFacility")){
+            response = planetService.sortByFacilityDesc(planets);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else if(!CollectionUtils.isEmpty(planets) && category.contentEquals("discoveryMethod")){
+            response = planetService.sortByMethodDesc(planets);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else if(!CollectionUtils.isEmpty(planets) && category.contentEquals("discoveryYear")){
+            response = planetService.sortByYearDesc(planets);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            throw new NoValidSearchException("No Data Found for Search.");
+        }
+    }
 }

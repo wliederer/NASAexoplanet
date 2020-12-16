@@ -31,7 +31,7 @@ public class PlanetService {
 
         List<Planet> firstHundred = new ArrayList<>();
 
-        firstHundred = planetList.stream().limit(10).collect(Collectors.toList());
+        firstHundred = planetList.stream().limit(35).collect(Collectors.toList());
 
         return firstHundred;
     }
@@ -76,10 +76,6 @@ public class PlanetService {
     }
 
 
-
-
-
-
     //TODO- search by all fields
     public List<Planet> searchByAllFields(PlanetSearchReq multipleFields) throws DataNotFoundException {
 
@@ -92,12 +88,12 @@ public class PlanetService {
 
         if (!ObjectUtils.isEmpty(multipleFields)) {
             byMultipleFields = planetList.stream().filter(planet ->
-                            planet.getDiscoveryYear().equals(multipleFields.getDiscoveryYear()) &&
-                                    planet.getDiscoveryMethod().equals(multipleFields.getDiscoveryMethod()) &&
-                                    planet.getHostName().equals(multipleFields.getHostName()) &&
-                                    planet.getDiscoveryFacility().equals(multipleFields.getDiscoveryFacility())
+                    planet.getDiscoveryYear().equals(multipleFields.getDiscoveryYear()) &&
+                            planet.getDiscoveryMethod().equals(multipleFields.getDiscoveryMethod()) &&
+                            planet.getHostName().equals(multipleFields.getHostName()) &&
+                            planet.getDiscoveryFacility().equals(multipleFields.getDiscoveryFacility())
             ).collect(Collectors.toList());
-        } else if(CollectionUtils.isEmpty(byMultipleFields)){
+        } else if (CollectionUtils.isEmpty(byMultipleFields)) {
 
             throw new DataNotFoundException("No Results Match Criteria");
         }
@@ -106,43 +102,97 @@ public class PlanetService {
     }
 
 
-//TODO- get hostname to be a link to the website
-    //TODO- (discovery year)User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
-    //TODO- (discovery method)User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
-    //TODO- (discovery facility)User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
+    //TODO- get hostname to be a link to the website
 
 
 
-    //TODO- (discovery year)User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
-    //TODO- (discovery method)User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
-    //TODO- (discovery facility)User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
+    public List<Planet> sortByHostNameAsc(List<Planet> planets) throws DataNotFoundException {
 
-
-
-
-    public List<Planet> sortByHostNameAsc(List<Planet> planets) throws DataNotFoundException{
-
-        if(!CollectionUtils.isEmpty(planets)){
+        if (!CollectionUtils.isEmpty(planets)) {
 
             return planets.stream().sorted((planetOne, planetTwo) -> planetOne.getHostName().compareToIgnoreCase(planetTwo.getHostName())).collect(Collectors.toList());
 
         } else {
             throw new DataNotFoundException("No List Available to Sort");
         }
-
     }
 
 
+    public List<Planet> sortByHostNameDesc(List<Planet> planets) throws DataNotFoundException {
 
-    public List<Planet> sortByHostNameDesc(List<Planet> planets) throws DataNotFoundException{
-
-        if(!CollectionUtils.isEmpty(planets)){
+        if (!CollectionUtils.isEmpty(planets)) {
             return planets.stream().sorted((planetOne, planetTwo) -> planetTwo.getHostName().compareToIgnoreCase(planetOne.getHostName())).collect(Collectors.toList());
+        } else {
+            throw new DataNotFoundException("Provide List To Sort");
+        }
+    }
+
+
+    public List<Planet> sortByFacilityAsc(List<Planet> planets) throws DataNotFoundException {
+
+        if (!CollectionUtils.isEmpty(planets)) {
+            return planets.stream().sorted((planetOne, planetTwo) -> planetOne.getDiscoveryFacility().compareToIgnoreCase(planetTwo.getDiscoveryFacility())).collect(Collectors.toList());
         } else {
             throw new DataNotFoundException("Provide List To Sort");
         }
 
     }
 
+
+    public List<Planet> sortByFacilityDesc(List<Planet> planets) throws DataNotFoundException{
+
+        if (!CollectionUtils.isEmpty(planets)) {
+            return planets.stream().sorted((planetOne, planetTwo) -> planetTwo.getDiscoveryFacility().compareToIgnoreCase(planetOne.getDiscoveryFacility())).collect(Collectors.toList());
+        } else {
+            throw new DataNotFoundException("Provide List To Sort");
+        }
+    }
+
+
+
+
+    public List<Planet> sortByMethodAsc(List<Planet> planets) throws DataNotFoundException{
+
+        if (!CollectionUtils.isEmpty(planets)) {
+            return planets.stream().sorted((planetOne, planetTwo) -> planetOne.getDiscoveryMethod().compareToIgnoreCase(planetTwo.getDiscoveryMethod())).collect(Collectors.toList());
+        } else {
+            throw new DataNotFoundException("Provide List To Sort");
+        }
+    }
+
+
+    public List<Planet> sortByMethodDesc(List<Planet> planets) throws DataNotFoundException{
+
+        if (!CollectionUtils.isEmpty(planets)) {
+            return planets.stream().sorted((planetOne, planetTwo) -> planetTwo.getDiscoveryMethod().compareToIgnoreCase(planetOne.getDiscoveryMethod())).collect(Collectors.toList());
+        } else {
+            throw new DataNotFoundException("Provide List To Sort");
+        }
+    }
+
+
+
+
+    public List<Planet> sortByYearAsc(List<Planet> planets) throws DataNotFoundException{
+
+        if (!CollectionUtils.isEmpty(planets)) {
+            return planets.stream().sorted((planetOne, planetTwo) -> planetOne.getDiscoveryYear().compareToIgnoreCase(planetTwo.getDiscoveryYear())).collect(Collectors.toList());
+        } else {
+            throw new DataNotFoundException("Provide List To Sort");
+        }
+    }
+
+
+
+
+
+    public List<Planet> sortByYearDesc(List<Planet> planets) throws DataNotFoundException{
+
+        if (!CollectionUtils.isEmpty(planets)) {
+            return planets.stream().sorted((planetOne, planetTwo) -> planetTwo.getDiscoveryYear().compareToIgnoreCase(planetOne.getDiscoveryYear())).collect(Collectors.toList());
+        } else {
+            throw new DataNotFoundException("Provide List To Sort");
+        }
+    }
 
 }
