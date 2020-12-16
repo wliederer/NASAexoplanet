@@ -87,11 +87,23 @@ public class PlanetController {
 
 
     @PostMapping("/sort-hostname-ascending")
-    public ResponseEntity<List<Planet>> ascendingSortByHostName(@RequestBody List<Planet> planets, String category) throws DataNotFoundException, NoValidSearchException {
+    public ResponseEntity<List<Planet>> ascendingSortByHostName(@RequestBody List<Planet> planets) throws DataNotFoundException, NoValidSearchException {
         List<Planet> response;
 
         if(!CollectionUtils.isEmpty(planets)){
-            response = planetService.sortByHostName(planets);
+            response = planetService.sortByHostNameAsc(planets);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            throw new NoValidSearchException("No Data Found for Search.");
+        }
+    }
+
+    @PostMapping("/sort-hostname-descending")
+    public ResponseEntity<List<Planet>> descendingSortByHostName(@RequestBody List<Planet> planets) throws DataNotFoundException, NoValidSearchException {
+        List<Planet> response;
+
+        if(!CollectionUtils.isEmpty(planets)){
+            response = planetService.sortByHostNameDesc(planets);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             throw new NoValidSearchException("No Data Found for Search.");

@@ -112,15 +112,15 @@ public class PlanetService {
     //TODO- (discovery facility)User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
 
 
-    //TODO- (host name)User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
+
     //TODO- (discovery year)User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
     //TODO- (discovery method)User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
     //TODO- (discovery facility)User can click on the down symbol to sort the rows in the results panel in descending order on the values in the column.
 
 
 
-    //TODO- (host name)User can click on the up symbol to sort the rows in the results panel in ascending order on the values in that column.
-    public List<Planet> sortByHostName(List<Planet> planets) throws DataNotFoundException{
+
+    public List<Planet> sortByHostNameAsc(List<Planet> planets) throws DataNotFoundException{
 
         if(!CollectionUtils.isEmpty(planets)){
 
@@ -133,6 +133,16 @@ public class PlanetService {
     }
 
 
+
+    public List<Planet> sortByHostNameDesc(List<Planet> planets) throws DataNotFoundException{
+
+        if(!CollectionUtils.isEmpty(planets)){
+            return planets.stream().sorted((planetOne, planetTwo) -> planetTwo.getHostName().compareToIgnoreCase(planetOne.getHostName())).collect(Collectors.toList());
+        } else {
+            throw new DataNotFoundException("Provide List To Sort");
+        }
+
+    }
 
 
 }
