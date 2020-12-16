@@ -22,6 +22,8 @@ import com.nasa.repo.PlanetRepo;
 @Service
 public class PlanetService {
 
+    //TODO- get hostname to be a link to the website
+
     private static final Logger log = LoggerFactory.getLogger(PlanetService.class);
 
 
@@ -102,10 +104,6 @@ public class PlanetService {
     }
 
 
-    //TODO- get hostname to be a link to the website
-
-
-
     public List<Planet> sortByHostNameAsc(List<Planet> planets) throws DataNotFoundException {
 
         if (!CollectionUtils.isEmpty(planets)) {
@@ -139,7 +137,7 @@ public class PlanetService {
     }
 
 
-    public List<Planet> sortByFacilityDesc(List<Planet> planets) throws DataNotFoundException{
+    public List<Planet> sortByFacilityDesc(List<Planet> planets) throws DataNotFoundException {
 
         if (!CollectionUtils.isEmpty(planets)) {
             return planets.stream().sorted((planetOne, planetTwo) -> planetTwo.getDiscoveryFacility().compareToIgnoreCase(planetOne.getDiscoveryFacility())).collect(Collectors.toList());
@@ -149,9 +147,7 @@ public class PlanetService {
     }
 
 
-
-
-    public List<Planet> sortByMethodAsc(List<Planet> planets) throws DataNotFoundException{
+    public List<Planet> sortByMethodAsc(List<Planet> planets) throws DataNotFoundException {
 
         if (!CollectionUtils.isEmpty(planets)) {
             return planets.stream().sorted((planetOne, planetTwo) -> planetOne.getDiscoveryMethod().compareToIgnoreCase(planetTwo.getDiscoveryMethod())).collect(Collectors.toList());
@@ -161,7 +157,7 @@ public class PlanetService {
     }
 
 
-    public List<Planet> sortByMethodDesc(List<Planet> planets) throws DataNotFoundException{
+    public List<Planet> sortByMethodDesc(List<Planet> planets) throws DataNotFoundException {
 
         if (!CollectionUtils.isEmpty(planets)) {
             return planets.stream().sorted((planetOne, planetTwo) -> planetTwo.getDiscoveryMethod().compareToIgnoreCase(planetOne.getDiscoveryMethod())).collect(Collectors.toList());
@@ -171,9 +167,7 @@ public class PlanetService {
     }
 
 
-
-
-    public List<Planet> sortByYearAsc(List<Planet> planets) throws DataNotFoundException{
+    public List<Planet> sortByYearAsc(List<Planet> planets) throws DataNotFoundException {
 
         if (!CollectionUtils.isEmpty(planets)) {
             return planets.stream().sorted((planetOne, planetTwo) -> planetOne.getDiscoveryYear().compareToIgnoreCase(planetTwo.getDiscoveryYear())).collect(Collectors.toList());
@@ -183,10 +177,7 @@ public class PlanetService {
     }
 
 
-
-
-
-    public List<Planet> sortByYearDesc(List<Planet> planets) throws DataNotFoundException{
+    public List<Planet> sortByYearDesc(List<Planet> planets) throws DataNotFoundException {
 
         if (!CollectionUtils.isEmpty(planets)) {
             return planets.stream().sorted((planetOne, planetTwo) -> planetTwo.getDiscoveryYear().compareToIgnoreCase(planetOne.getDiscoveryYear())).collect(Collectors.toList());
